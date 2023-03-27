@@ -1,0 +1,30 @@
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+.card-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.card-button{
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 15px;
+    background-color: rgba(33, 150, 243, 1);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 20px;
+
+    transition: all 0.5s;
+}
+
+.card-button:hover{
+ opacity: 0.8;
+}
