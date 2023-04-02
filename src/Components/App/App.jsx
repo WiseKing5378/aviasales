@@ -1,4 +1,7 @@
-// import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { fetchData } from '../../Store/CardListSlice';
 import PriceFilter from '../PriceFilter';
 import TransferFilter from '../TransferFilter';
 import CardList from '../CardList';
@@ -6,6 +9,12 @@ import './App.scss';
 import Logo from '../../Img/Logo.png';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
   return (
     <div className="app">
       <header className="app__header">
