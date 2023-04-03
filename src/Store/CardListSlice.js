@@ -2,11 +2,19 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchData = createAsyncThunk('CardListData/fetchData', async () => {
+export const getSearchId = createAsyncThunk('CardListData/getSearchId', async () => {
   const searchIdResp = await fetch('https://aviasales-test-api.kata.academy/search');
   const searchId = await searchIdResp.json();
 
-  const ticketsResp = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId.searchId}`);
+  return searchId;
+});
+
+export const fetchData = createAsyncThunk('CardListData/fetchData', async (searchId) => {
+  // const searchIdResp = await fetch('https://aviasales-test-api.kata.academy/search');
+  // const searchId = await searchIdResp.json();
+  // console.log(searchId);
+
+  const ticketsResp = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
   const ticketsData = await ticketsResp.json();
 
   return ticketsData;
@@ -18,18 +26,18 @@ const CardListSlice = createSlice({
     cardData: [],
     status: null,
     error: null,
+    stop: false,
+    searchId: null,
   },
-  reducers: {
-    // clgState(state) {
-    //   console.log(state);
-    // },
-  },
+  reducers: {},
   extraReducers: {
     [fetchData.pending]: (state, action) => {
       state.status = 'loading';
       state.error = null;
     },
     [fetchData.fulfilled]: (state, action) => {
+      console.log(action);
+      state.stop = action.payload.stop;
       state.status = 'ok';
       state.cardData = action.payload.tickets;
       state.error = null;
@@ -38,8 +46,13 @@ const CardListSlice = createSlice({
       state.status = 'error';
       state.error = true;
     },
+
+    [getSearchId.pending]: (state, action) => {},
+    [getSearchId.fulfilled]: (state, action) => {
+      state.searchId = action.payload.searchId;
+    },
+    [getSearchId.rejected]: (state, action) => {},
   },
 });
 
-// export const { clgState } = CardListSlice.actions;
 export default CardListSlice.reducer;

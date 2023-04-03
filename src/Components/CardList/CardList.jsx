@@ -8,8 +8,8 @@ function CardList() {
   const { cardData } = useSelector((state) => state.CardListSlice);
 
   const data = cardData.map((i) => {
-    const { price, company, segments } = i;
-    return <CardItem key={uuid()} price={price} company={company} segments={segments} />;
+    const { price, carrier, segments } = i;
+    return <CardItem key={uuid()} price={price} carrier={carrier} segments={segments} />;
   });
   console.log(cardData);
   return (

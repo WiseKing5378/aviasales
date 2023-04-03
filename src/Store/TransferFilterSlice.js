@@ -4,9 +4,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const TransferFilterSlice = createSlice({
   name: 'TransferFilterData',
   initialState: {
-    checkedList: [],
+    checkedList: ['Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'],
     indeterminate: false,
-    checkAll: false,
+    checkAll: true,
     plainOptions: ['Без пересадок', '1 пересадка', '2 пересадки', '3 пересадки'],
   },
   reducers: {
