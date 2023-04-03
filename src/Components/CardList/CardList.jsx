@@ -1,21 +1,33 @@
+/* eslint-disable no-unused-vars */
 import './CardList.scss';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 
+import { setVisibleData, fetchData } from '../../Store/CardListSlice';
 import CardItem from '../CardItem';
 
 function CardList() {
-  const { cardData } = useSelector((state) => state.CardListSlice);
+  const { visibleData, searchId, cardData } = useSelector((state) => state.CardListSlice);
+  const dispatch = useDispatch();
 
-  const data = cardData.map((i) => {
+  const data = visibleData.map((i) => {
     const { price, carrier, segments } = i;
     return <CardItem key={uuid()} price={price} carrier={carrier} segments={segments} />;
   });
-  console.log(cardData);
+
   return (
     <>
       <ul className="card-list">{data}</ul>
-      <button type="button" className="card-button">
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(setVisibleData());
+          if (cardData.length + 1 - (visibleData.length + 1) === 5) {
+            dispatch(fetchData(searchId));
+          }
+        }}
+        className="card-button"
+      >
         Показать еще 5 билетов!
       </button>
     </>

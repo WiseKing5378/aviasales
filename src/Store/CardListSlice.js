@@ -24,22 +24,29 @@ const CardListSlice = createSlice({
   name: 'CardListData',
   initialState: {
     cardData: [],
+    visibleData: [],
+    sliceNum: 100,
     status: null,
     error: null,
     stop: false,
     searchId: null,
   },
-  reducers: {},
+  reducers: {
+    setVisibleData(state, action) {
+      state.sliceNum += 100;
+      state.visibleData = [...state.cardData.slice(0, state.sliceNum)];
+    },
+  },
   extraReducers: {
     [fetchData.pending]: (state, action) => {
       state.status = 'loading';
       state.error = null;
     },
     [fetchData.fulfilled]: (state, action) => {
-      console.log(action);
       state.stop = action.payload.stop;
       state.status = 'ok';
-      state.cardData = action.payload.tickets;
+      state.cardData = [...state.cardData, ...action.payload.tickets];
+      state.visibleData = [...action.payload.tickets.slice(0, state.sliceNum)];
       state.error = null;
     },
     [fetchData.rejected]: (state, action) => {
@@ -54,5 +61,5 @@ const CardListSlice = createSlice({
     [getSearchId.rejected]: (state, action) => {},
   },
 });
-
+export const { setVisibleData } = CardListSlice.actions;
 export default CardListSlice.reducer;

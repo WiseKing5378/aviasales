@@ -11,16 +11,17 @@ import Logo from '../../Img/Logo.png';
 function App() {
   const dispatch = useDispatch();
   const { searchId } = useSelector((state) => state.CardListSlice);
-  console.log(searchId);
 
   useEffect(() => {
     dispatch(getSearchId());
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchData(searchId));
-  }, [dispatch]);
+  }, [searchId]);
 
   return (
     <div className="app">
-      <button type="button">543</button>
       <header className="app__header">
         <img src={Logo} alt="plane-logo" />
       </header>
