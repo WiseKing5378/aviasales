@@ -25,7 +25,7 @@ const CardListSlice = createSlice({
   initialState: {
     cardData: [],
     visibleData: [],
-    sliceNum: 100,
+    sliceNum: 5,
     status: null,
     error: null,
     stop: false,
@@ -33,7 +33,7 @@ const CardListSlice = createSlice({
   },
   reducers: {
     setVisibleData(state, action) {
-      state.sliceNum += 100;
+      state.sliceNum += 5;
       state.visibleData = [...state.cardData.slice(0, state.sliceNum)];
     },
   },

@@ -7,7 +7,7 @@ import { setVisibleData, fetchData } from '../../Store/CardListSlice';
 import CardItem from '../CardItem';
 
 function CardList() {
-  const { visibleData, searchId, cardData } = useSelector((state) => state.CardListSlice);
+  const { visibleData, searchId, cardData, status, stop } = useSelector((state) => state.CardListSlice);
   const dispatch = useDispatch();
 
   const data = visibleData.map((i) => {
@@ -18,11 +18,12 @@ function CardList() {
   return (
     <>
       <ul className="card-list">{data}</ul>
+      {stop ? <p>Билетов больше нет</p> : null}
       <button
         type="button"
         onClick={() => {
           dispatch(setVisibleData());
-          if (cardData.length + 1 - (visibleData.length + 1) === 5) {
+          if (cardData.length + 1 - (visibleData.length + 1) === 10 || status === 'error') {
             dispatch(fetchData(searchId));
           }
         }}
