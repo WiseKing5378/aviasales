@@ -20,41 +20,27 @@ const CardListSlice = createSlice({
   name: 'CardListData',
   initialState: {
     cardData: [],
-    visibleData: [],
     sliceNum: 5,
     status: null,
-    error: null,
     stop: false,
     searchId: null,
   },
   reducers: {
-    setVisibleData(state, action) {
+    setSliceNum(state, action) {
       state.sliceNum += 5;
-      state.visibleData = [...state.cardData.slice(0, state.sliceNum)];
-    },
-    filterData(state, action) {
-      if (action.payload === 'cheap') {
-        state.cardData = [...state.cardData].sort((a, b) => {
-          return a.price - b.price;
-        });
-      }
     },
   },
   extraReducers: {
     [fetchData.pending]: (state, action) => {
       state.status = 'loading';
-      state.error = null;
     },
     [fetchData.fulfilled]: (state, action) => {
       state.stop = action.payload.stop;
       state.status = 'ok';
       state.cardData = [...state.cardData, ...action.payload.tickets];
-      state.visibleData = [...action.payload.tickets.slice(0, state.sliceNum)];
-      state.error = null;
     },
     [fetchData.rejected]: (state, action) => {
       state.status = 'error';
-      state.error = true;
     },
 
     [getSearchId.pending]: (state, action) => {},
@@ -64,5 +50,5 @@ const CardListSlice = createSlice({
     [getSearchId.rejected]: (state, action) => {},
   },
 });
-export const { setVisibleData, filterData } = CardListSlice.actions;
+export const { setSliceNum, filterData } = CardListSlice.actions;
 export default CardListSlice.reducer;
