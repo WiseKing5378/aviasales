@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchData(searchId));
+    if (searchId) dispatch(fetchData(searchId));
   }, [searchId]);
 
   return (
