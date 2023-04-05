@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getSearchId = createAsyncThunk('CardListData/getSearchId', async () => {
@@ -43,11 +42,9 @@ const CardListSlice = createSlice({
       state.status = 'error';
     },
 
-    [getSearchId.pending]: (state, action) => {},
     [getSearchId.fulfilled]: (state, action) => {
       state.searchId = action.payload.searchId;
     },
-    [getSearchId.rejected]: (state, action) => {},
   },
 });
 export const { setSliceNum, filterData } = CardListSlice.actions;

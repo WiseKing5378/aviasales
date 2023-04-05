@@ -1,7 +1,7 @@
 import './PriceFilter.scss';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getCheapest, getFastes } from '../../Store/PriceFilterSlice';
+import { getActiveTab } from '../../Store/PriceFilterSlice';
 
 function PriceFilter() {
   const { activeTab } = useSelector((state) => state.PriceFilterSlice);
@@ -12,7 +12,7 @@ function PriceFilter() {
         type="button"
         className={activeTab === 'cheap' ? 'price-button active' : 'price-button'}
         onClick={() => {
-          dispatch(getCheapest());
+          dispatch(getActiveTab('cheap'));
         }}
       >
         Самый дешевый
@@ -21,7 +21,7 @@ function PriceFilter() {
         type="button"
         className={activeTab === 'fast' ? 'price-button active' : 'price-button'}
         onClick={() => {
-          dispatch(getFastes());
+          dispatch(getActiveTab('fast'));
         }}
       >
         Самый быстрый

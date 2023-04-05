@@ -24,26 +24,28 @@ button {
   padding: 15px;
   background: #ffffff;
   border: solid 1px #dfe5ec;
-}
 
-.price-button:hover:enabled {
-  background: rgba($color: #2196f3, $alpha: 0.01);
-  color: black;
-  font-size: 11px;
-}
-.price-button:disabled {
-  color: #ffffff;
-  background-color: gray;
-  opacity: 0.5;
-}
+  &:hover:enabled {
+    background: rgba($color: #2196f3, $alpha: 0.01);
+    color: black;
+    font-size: 11px;
+  }
 
-.price-button:first-child {
-  border-radius: 10px 0 0 10px;
-  border-right: none;
-}
-.price-button:last-child {
-  border-radius: 0 10px 10px 0;
-  border-left: none;
+  &:disabled {
+    color: #ffffff;
+    background-color: gray;
+    opacity: 0.5;
+  }
+
+  &:first-child {
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+  }
+
+  &:last-child {
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+  }
 }
 
 .active,

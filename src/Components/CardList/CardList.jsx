@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable radix */
-/* eslint-disable no-unused-vars */
+
 import './CardList.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
@@ -16,7 +15,7 @@ function CardList() {
   const dispatch = useDispatch();
 
   const transferFilter = checkedList.map((i) => {
-    i = parseInt(i.match(/\d+/));
+    i = parseInt(i.match(/\d+/), 10);
     if (!i) return 0;
     return i;
   });
@@ -71,7 +70,7 @@ function CardList() {
           }
         }}
         className="card-button"
-        disabled={!data.length}
+        disabled={!data.length || stop}
       >
         Показать еще 5 билетов!
       </button>

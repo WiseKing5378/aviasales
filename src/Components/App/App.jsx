@@ -19,6 +19,7 @@ function App() {
   useEffect(() => {
     if (searchId) dispatch(fetchData(searchId));
   }, [searchId]);
+
   useEffect(() => {
     if (status === 'error' && !stop) dispatch(fetchData(searchId));
   }, [status]);

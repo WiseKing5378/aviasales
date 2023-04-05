@@ -7,14 +7,11 @@ const TransferFilterSlice = createSlice({
     activeTab: 'cheap',
   },
   reducers: {
-    getCheapest(state) {
-      state.activeTab = 'cheap';
-    },
-    getFastes(state) {
-      state.activeTab = 'fast';
+    getActiveTab(state, action) {
+      state.activeTab = action.payload;
     },
   },
 });
 
-export const { getCheapest, getFastes } = TransferFilterSlice.actions;
+export const { getActiveTab } = TransferFilterSlice.actions;
 export default TransferFilterSlice.reducer;
