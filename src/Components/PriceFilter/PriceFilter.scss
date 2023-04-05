@@ -26,11 +26,15 @@ button {
   border: solid 1px #dfe5ec;
 }
 
-.price-button:hover,
-.price-button:active,
-.price-button:focus {
-  background: #2196f3;
+.price-button:hover:enabled {
+  background: rgba($color: #2196f3, $alpha: 0.01);
+  color: black;
+  font-size: 11px;
+}
+.price-button:disabled {
   color: #ffffff;
+  background-color: gray;
+  opacity: 0.5;
 }
 
 .price-button:first-child {
@@ -40,4 +44,11 @@ button {
 .price-button:last-child {
   border-radius: 0 10px 10px 0;
   border-left: none;
+}
+
+.active,
+.price-button.active:hover {
+  background: #2196f3;
+  color: #ffffff;
+  font-size: 12px;
 }

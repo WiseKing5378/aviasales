@@ -24,7 +24,10 @@ ul {
 
   transition: all 0.5s;
 }
-
-.card-button:hover {
+.card-button:disabled {
+  background-color: gray;
+  opacity: 0.5;
+}
+.card-button:hover:enabled {
   opacity: 0.8;
 }

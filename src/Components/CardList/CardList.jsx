@@ -4,13 +4,13 @@
 import './CardList.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
+import { Spin } from 'antd';
 
 import { setSliceNum, fetchData } from '../../Store/CardListSlice';
 import CardItem from '../CardItem';
 
 function CardList() {
   const { searchId, cardData, status, stop, sliceNum } = useSelector((state) => state.CardListSlice);
-
   const { checkedList } = useSelector((state) => state.TransferFilterSlice);
   const { activeTab } = useSelector((state) => state.PriceFilterSlice);
   const dispatch = useDispatch();
@@ -46,6 +46,7 @@ function CardList() {
   );
 
   const visibleData = filteredData.slice(0, sliceNum);
+  const spiner = <Spin size="large" spinning={status === 'loading'} />;
 
   const data = visibleData.map((i) => {
     const { price, carrier, segments } = i;
@@ -54,17 +55,23 @@ function CardList() {
 
   return (
     <>
-      <ul className="card-list">{data.length ? data : 'Рейсов, подходящих под заданные фильтры, не найдено'}</ul>
-      {stop ? <p>Билетов больше нет</p> : null}
+      <ul className="card-list">
+        {data}
+        {spiner}
+        {!data.length && status !== 'loading' ? 'Рейсов, подходящих под заданные фильтры, не найдено' : ''}
+        {stop ? <p>Билетов больше нет</p> : null}
+      </ul>
+
       <button
         type="button"
         onClick={() => {
           dispatch(setSliceNum());
-          if (cardData.length - visibleData.length === 10 || status === 'error') {
+          if (cardData.length - visibleData.length === 10) {
             dispatch(fetchData(searchId));
           }
         }}
         className="card-button"
+        disabled={!data.length}
       >
         Показать еще 5 билетов!
       </button>

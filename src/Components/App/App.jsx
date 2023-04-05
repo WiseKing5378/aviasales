@@ -10,7 +10,7 @@ import Logo from '../../Img/Logo.png';
 
 function App() {
   const dispatch = useDispatch();
-  const { searchId } = useSelector((state) => state.CardListSlice);
+  const { searchId, status, stop } = useSelector((state) => state.CardListSlice);
 
   useEffect(() => {
     dispatch(getSearchId());
@@ -19,6 +19,9 @@ function App() {
   useEffect(() => {
     if (searchId) dispatch(fetchData(searchId));
   }, [searchId]);
+  useEffect(() => {
+    if (status === 'error' && !stop) dispatch(fetchData(searchId));
+  }, [status]);
 
   return (
     <div className="app">

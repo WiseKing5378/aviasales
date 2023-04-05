@@ -21,17 +21,17 @@ const CardListSlice = createSlice({
   initialState: {
     cardData: [],
     sliceNum: 5,
-    status: null,
+    status: 'loading',
     stop: false,
     searchId: null,
   },
   reducers: {
-    setSliceNum(state, action) {
+    setSliceNum(state) {
       state.sliceNum += 5;
     },
   },
   extraReducers: {
-    [fetchData.pending]: (state, action) => {
+    [fetchData.pending]: (state) => {
       state.status = 'loading';
     },
     [fetchData.fulfilled]: (state, action) => {
@@ -39,7 +39,7 @@ const CardListSlice = createSlice({
       state.status = 'ok';
       state.cardData = [...state.cardData, ...action.payload.tickets];
     },
-    [fetchData.rejected]: (state, action) => {
+    [fetchData.rejected]: (state) => {
       state.status = 'error';
     },
 
