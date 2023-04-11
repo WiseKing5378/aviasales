@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Spin } from 'antd';
 
 import { fetchData, getSearchId } from '../../Store/CardListSlice';
 import PriceFilter from '../PriceFilter';
 import TransferFilter from '../TransferFilter';
 import CardList from '../CardList';
-import './App.scss';
-import Logo from '../../Img/Logo.png';
+import Logo from '../../Assets/Logo.png';
+
+import style from './App.module.scss';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,19 +23,19 @@ function App() {
   }, [searchId]);
 
   useEffect(() => {
-    if (status === 'error' && !stop) dispatch(fetchData(searchId));
+    if ((status === 'error' && !stop) || (!stop && status === 'ok')) dispatch(fetchData(searchId));
   }, [status]);
 
   return (
-    <div className="app">
-      <header className="app__header">
+    <div className={style.app}>
+      <header className={style.app__header}>
         <img src={Logo} alt="plane-logo" />
       </header>
-      <section className="app__main">
+      <section className={style.app__main}>
         <TransferFilter />
-        <div>
+        <div className={style.app__data}>
           <PriceFilter />
-          <CardList />
+          {!stop ? <Spin size="large" /> : <CardList />}
         </div>
       </section>
     </div>

@@ -1,4 +1,17 @@
-import './CardItem.scss';
+/* eslint-disable react/no-typos */
+import PropTypes from 'prop-types';
+
+import style from './CardItem.module.scss';
+
+function CardInformation(props) {
+  const { h3, p } = props;
+  return (
+    <span>
+      <h3>{h3}</h3>
+      <p>{p}</p>
+    </span>
+  );
+}
 
 function CardItem(props) {
   const { price, segments, carrier } = props;
@@ -13,68 +26,57 @@ function CardItem(props) {
   const duration2 = new Date(segments[1].duration * 60 * 1000).toISOString().substr(11, 5);
 
   return (
-    <li className="card">
-      <div className="card__title">
+    <li className={style.card}>
+      <div className={style.card__title}>
         <p>{price.toLocaleString('ru-RU')} Р</p>
         <img src={`https://pics.avs.io/99/36/${carrier}.png`} alt="company logo" />
       </div>
-      <div className="card__info">
-        <div className="card__info-item">
-          <span>
-            <h3>
-              {segments[0].origin}-{segments[0].destination}
-            </h3>
-            <p>
-              {new Date(takeoffMin1 * 60 * 1000).toISOString().substr(11, 5)} -{' '}
-              {new Date(arrivalMin1 * 60 * 1000).toISOString().substr(11, 5)}
-            </p>
-          </span>
-          <span>
-            <h3>
-              {segments[1].origin}-{segments[1].destination}
-            </h3>
-            <p>
-              {new Date(takeoffMin2 * 60 * 1000).toISOString().substr(11, 5)} -{' '}
-              {new Date(arrivalMin2 * 60 * 1000).toISOString().substr(11, 5)}
-            </p>
-          </span>
+      <div className={style.card__info}>
+        <div className={style.card__infoItem}>
+          <CardInformation
+            h3={`${segments[0].origin}-${segments[0].destination}`}
+            p={`${new Date(takeoffMin1 * 60 * 1000).toISOString().substr(11, 5)} -
+              ${new Date(arrivalMin1 * 60 * 1000).toISOString().substr(11, 5)}`}
+          />
+          <CardInformation
+            h3={`${segments[1].origin}-${segments[1].destination}`}
+            p={`${new Date(takeoffMin2 * 60 * 1000).toISOString().substr(11, 5)} -
+              ${new Date(arrivalMin2 * 60 * 1000).toISOString().substr(11, 5)}`}
+          />
         </div>
 
-        <div className="card__info-item">
-          <span>
-            <h3>в пути</h3>
-            <p>
-              {duration1.slice(0, 2)}Ч {duration1.slice(3)}М
-            </p>
-          </span>
-          <span>
-            <h3>в пути</h3>
-            <p>
-              {duration2.slice(0, 2)}Ч {duration2.slice(3)}М
-            </p>
-          </span>
+        <div className={style.card__infoItem}>
+          <CardInformation h3="в пути" p={`${duration1.slice(0, 2)}Ч ${duration1.slice(3)}М`} />
+          <CardInformation h3="в пути" p={`${duration2.slice(0, 2)}Ч ${duration2.slice(3)}М`} />
         </div>
 
-        <div className="card__info-item">
-          <span>
-            <h3>
-              {stops1.length > 0
-                ? `${stops1.length} ${stops1.length === 1 ? 'пересадка' : 'пересадки'}`
-                : 'Прямой рейс'}{' '}
-            </h3>
-            <p>{stops1.join(' ')}</p>
-          </span>
-          <span>
-            <h3>
-              {stops2.length > 0
-                ? `${stops2.length} ${stops2.length === 1 ? 'пересадка' : 'пересадки'}`
-                : 'Прямой рейс'}{' '}
-            </h3>
-            <p>{stops2.join(' ')}</p>
-          </span>
+        <div className={style.card__infoItem}>
+          <CardInformation
+            h3={`${
+              stops1.length > 0 ? `${stops1.length} ${stops1.length === 1 ? 'пересадка' : 'пересадки'}` : 'Прямой рейс'
+            }`}
+            p={`${stops1.join(' ')}`}
+          />
+          <CardInformation
+            h3={`${
+              stops2.length > 0 ? `${stops2.length} ${stops2.length === 1 ? 'пересадка' : 'пересадки'}` : 'Прямой рейс'
+            }`}
+            p={`${stops2.join(' ')}`}
+          />
         </div>
       </div>
     </li>
   );
 }
+
+CardItem.defaultProps = {
+  price: 0,
+  carrier: 'S7',
+};
+
+CardItem.propTypes = {
+  price: PropTypes.number,
+  carrier: PropTypes.string,
+};
+
 export default CardItem;

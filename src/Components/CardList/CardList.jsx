@@ -1,15 +1,15 @@
 /* eslint-disable no-param-reassign */
 
-import './CardList.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
-import { Spin } from 'antd';
 
-import { setSliceNum, fetchData } from '../../Store/CardListSlice';
+import { setSliceNum } from '../../Store/CardListSlice';
 import CardItem from '../CardItem';
 
+import style from './CardList.module.scss';
+
 function CardList() {
-  const { searchId, cardData, status, stop, sliceNum } = useSelector((state) => state.CardListSlice);
+  const { cardData, status, sliceNum } = useSelector((state) => state.CardListSlice);
   const { checkedList } = useSelector((state) => state.TransferFilterSlice);
   const { activeTab } = useSelector((state) => state.PriceFilterSlice);
   const dispatch = useDispatch();
@@ -45,7 +45,6 @@ function CardList() {
   );
 
   const visibleData = filteredData.slice(0, sliceNum);
-  const spiner = <Spin size="large" spinning={status === 'loading'} />;
 
   const data = visibleData.map((i) => {
     const { price, carrier, segments } = i;
@@ -54,23 +53,19 @@ function CardList() {
 
   return (
     <>
-      <ul className="card-list">
+      <ul className={style.cardlist}>
         {data}
-        {spiner}
         {!data.length && status !== 'loading' ? 'Рейсов, подходящих под заданные фильтры, не найдено' : ''}
-        {stop ? <p>Билетов больше нет</p> : null}
+        {cardData.length - visibleData.length === 0 ? <p>Билетов больше нет</p> : null}
       </ul>
 
       <button
         type="button"
         onClick={() => {
           dispatch(setSliceNum());
-          if (cardData.length - visibleData.length === 10) {
-            dispatch(fetchData(searchId));
-          }
         }}
-        className="card-button"
-        disabled={!data.length || stop}
+        className={style.cardbutton}
+        disabled={!data.length || cardData.length - visibleData.length === 0}
       >
         Показать еще 5 билетов!
       </button>

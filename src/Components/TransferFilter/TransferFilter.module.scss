@@ -1,4 +1,4 @@
-.transfer-filter {
+.transfer_filter {
   font-family: sans-serif;
   display: flex;
 
@@ -10,7 +10,7 @@
   height: 250px;
 
   background: rgba(255, 255, 255, 1);
-  color: #4A4A4A;
+  color: #4a4a4a;
 
   &__title {
     display: flex;
@@ -23,22 +23,22 @@
   }
 }
 
-.checkbox-group {
+.checkbox_group {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 }
 
-.checkbox-group > label,
-.checkbox-hover {
+.checkbox_group > label,
+.checkbox_hover {
   transition: all 0.5s;
   margin: 0 !important;
   width: 100%;
   padding: 10px 20px;
 }
 
-.checkbox-group > label:hover,
-.checkbox-hover:hover {
+.checkbox_group > label:hover,
+.checkbox_hover:hover {
   background: rgba(241, 252, 255, 1);
 }

@@ -16,4 +16,10 @@ body {
     justify-content: center;
     gap: 20px;
   }
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }

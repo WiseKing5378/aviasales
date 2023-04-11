@@ -3,14 +3,13 @@ ul {
   padding: 0;
 }
 
-.card-list {
+.cardlist {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
   gap: 20px;
 }
 
-.card-button {
+.cardbutton {
   text-transform: uppercase;
   font-family: sans-serif;
   font-size: 12px;
